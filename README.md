@@ -20,7 +20,6 @@ Sigue estos pasos para configurar el proyecto en tu máquina local:
    ```bash
    git clone https://github.com/JNZader/ProyectoFinal.git
    ```
-   (Reemplaza `https://github.com/usuario/ecommerce.git` con la URL real de tu repositorio).
 
 2. **Navega al directorio del proyecto**:
    ```bash
