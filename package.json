@@ -1,7 +1,7 @@
 {
   "name": "proyectofinal",
   "private": true,
-  "version": "0.0.15",
+  "version": "0.0.17",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -9,9 +9,9 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "prepare": "husky",
+    "release:dev": "cross-env HUSKY_SKIP_STANDARD_VERSION=1 standard-version --release-as patch --skip.tag",
+    "release:prod": "cross-env HUSKY_SKIP_STANDARD_VERSION=1 standard-version --release-as minor",
     "commit": "git add . && npx cz",
-    "release:dev": "bash .scripts/release-dev.sh",
-    "release:prod": "standard-version --release-as minor",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s"
   },
   "dependencies": {
@@ -37,6 +37,7 @@
     "@types/react-dom": "^19.0.4",
     "@vitejs/plugin-react-swc": "^3.8.0",
     "commitizen": "^4.3.1",
+    "cross-env": "^7.0.3",
     "cz-conventional-changelog": "^3.3.0",
     "eslint": "^9.25.1",
     "eslint-plugin-react-hooks": "^5.2.0",

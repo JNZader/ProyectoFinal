@@ -1,6 +1,6 @@
 #!/bin/sh
-if [ "$(git rev-parse --abbrev-ref HEAD)" = "develop" ]; then
-  npx standard-version --release-as patch --skip.tag --skip.commit
+if [ "$(git rev-parse --abbrev-ref HEAD)" = "develop" ] && [ -z "$(git log -1 --pretty=%B | grep 'chore(release)')" ]; then
+  npm run release:dev
   git add CHANGELOG.md package.json package-lock.json
   git commit --amend --no-edit --no-verify
 fi
