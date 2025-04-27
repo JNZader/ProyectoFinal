@@ -1,33 +1,20 @@
-name: Generate Changelog on Merge to Main
-
+name: Release
 on:
   push:
-    branches:
-      - main
-
+    branches: [main]
 jobs:
-  generate_changelog:
+  release:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
+      - run: npm ci
+      - run: npm run release:prod
+      - uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          node-version: 'lts/*'
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Generate Initial Changelog
-        run: npx conventional-changelog-cli -p angular -i CHANGELOG.md -s
-
-      - name: Commit and Push Changelog
-        uses: stefanzweifel/git-auto-commit-action@v4
-        with:
-          commit_message: 'chore(release): initial CHANGELOG.md'
-          file_pattern: CHANGELOG.md
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          commit_message: "chore(release): bump version to 0.x.0"
+          file_pattern: CHANGELOG.md package.json package-lock.json
+      - run: git push --tags
