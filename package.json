@@ -1,7 +1,7 @@
 {
   "name": "proyectofinal",
   "private": true,
-  "version": "0.0.13",
+  "version": "0.0.15",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -9,9 +9,9 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "prepare": "husky",
-    "release:dev": "standard-version --release-as patch --skip.tag --skip.commit",
-    "release:prod": "standard-version --release-as minor",
     "commit": "git add . && npx cz",
+    "release:dev": "bash .scripts/release-dev.sh",
+    "release:prod": "standard-version --release-as minor",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s"
   },
   "dependencies": {

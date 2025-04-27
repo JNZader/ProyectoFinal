@@ -1,1 +1,7 @@
-npx lint-staged
+#!/bin/sh
+. "$(dirname "$0")/husky.sh"
+
+# Evita que standard-version se ejecute durante el pre-commit
+if [ -z "$HUSKY_SKIP_STANDARD_VERSION" ]; then
+  npm run lint
+fi

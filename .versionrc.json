@@ -14,7 +14,7 @@
       {"type": "perf", "section": "⚡ Performance Improvements"},
       {"type": "test", "section": "🧪 Tests", "hidden": true},
       {"type": "build", "section": "📦 Build System"},
-      {"type": "ci", "section": "🔧 CI Configuration"},
+      {"type": "ci", "section": "🔧 CI Configuration", "hidden": true},
       {"type": "chore", "section": "🧹 Chores", "hidden": true},
       {"type": "revert", "section": "⏪ Reverts"}
     ],
@@ -37,5 +37,9 @@
     ],
     "scripts": {
       "postchangelog": "prettier --write CHANGELOG.md"
-    }
+    },
+    "releaseCommitMessageFormat": "chore(release): {{currentTag}} [skip ci]",
+    "preset": "angular",
+    "tagPrefix": "v",
+    "issuePrefixes": ["#"]
   }
