@@ -1,7 +1,7 @@
 {
   "name": "proyectofinal",
   "private": true,
-  "version": "0.0.3",
+  "version": "0.0.6",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -10,7 +10,7 @@
     "preview": "vite preview",
     "prepare": "husky",
     "commit": "git add . && npx cz",
-    "release:dev": "standard-version --release-as patch --skip.tag --skip.commit",
+    "release:dev": "standard-version --release-as patch --skip.tag --skip.commit --skip.changelog --dry-run && standard-version --release-as patch --skip.tag --skip.commit",
     "release:prod": "standard-version --release-as minor",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s"
   },
