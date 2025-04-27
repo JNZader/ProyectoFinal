@@ -1,0 +1,12 @@
+#!/bin/sh
+# Verifica que estamos en develop y que el commit no fue hecho por standard-version
+if [ "$(git rev-parse --abbrev-ref HEAD)" = "develop" ] && [ -z "$(git log -1 --pretty=%B | grep 'chore(release)')" ]; then
+  # Ejecuta standard-version sin crear commits
+  npx standard-version --release-as patch --skip.tag --skip.commit --skip.changelog
+  
+  # Agrega los cambios al staging area
+  git add CHANGELOG.md package.json package-lock.json
+  
+  # Amenda el commit actual sin crear uno nuevo
+  git commit --amend --no-edit --no-verify
+fi
