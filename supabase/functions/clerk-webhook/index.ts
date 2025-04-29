@@ -97,6 +97,27 @@ Deno.serve(async (req) => {
         return new Response(JSON.stringify({ error: error.message, details: error }), {
           status: 500,
         });
+        // Insertar en clientes
+        const { data: cliente, error: clienteError } = await supabase
+          .from("clientes")
+          .insert([
+            {
+              usuario_id: user.usuario_id,
+              fecha_registro: new Date(event.data.created_at).toISOString(),
+            },
+          ])
+          .select()
+          .single();
+
+        if (clienteError) {
+          console.error("Supabase insert error (clientes):", clienteError);
+          return new Response(JSON.stringify({ error: clienteError.message, details: clienteError }), {
+            status: 500,
+          });
+        }
+
+        console.log("User and client created successfully:", { user, cliente });
+        return new Response(JSON.stringify({ user, cliente }), { status: 200 });
       }
 
       console.log("User created successfully:", user);

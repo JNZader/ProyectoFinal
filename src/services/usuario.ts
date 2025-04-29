@@ -12,9 +12,9 @@ export interface Usuario {
 
 export const getUsuarios = async (): Promise<Usuario[]> => {
   const { data, error } = await supabase
-    .from('usuario')
-    .select('*')
-    .eq('rol', 'cliente')
+    .from('usuarios')
+    .select('*, clientes(cliente_id, fecha_nacimiento, puntos_acumulados)')
+    .eq('rol', 'CLIENTE')
     .eq('activo', true);
   if (error) throw error;
   return data;
