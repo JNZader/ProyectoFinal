@@ -21,17 +21,12 @@ Sigue estos pasos para configurar el proyecto en tu máquina local:
    git clone https://github.com/JNZader/ProyectoFinal.git
    ```
 
-2. **Navega al directorio del proyecto**:
-   ```bash
-   cd ecommerce
-   ```
-
-3. **Instala las dependencias del frontend**:
+2. **Instala las dependencias del frontend**:
    ```bash
    npm install
    ```
 
-4. **Configura las variables de entorno**:
+3. **Configura las variables de entorno**:
    - Crea un archivo `.env` en la raíz del proyecto.
    - Copia el contenido del archivo `.env.example` y reemplaza los valores con tus propias claves de Supabase y Clerk:
      ```
@@ -41,7 +36,7 @@ Sigue estos pasos para configurar el proyecto en tu máquina local:
      ```
    - Asegúrate de agregar `.env` al archivo `.gitignore` para evitar subir claves sensibles al repositorio.
 
-5. **Inicia el servidor de desarrollo**:
+4. **Inicia el servidor de desarrollo**:
    ```bash
    npm run dev
    ```
