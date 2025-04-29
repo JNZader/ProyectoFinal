@@ -16,23 +16,18 @@ CREATE TABLE localidad (
 -- Tabla DIRECCION
 CREATE TABLE direcciones (
   direccion_id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-  tipo TEXT CHECK (tipo IN ('CLIENTE', 'ALMACEN', 'PROVEEDOR', 'REPARTIDOR', 'PUNTO_RETIRO')) NOT NULL,
+  tipo TEXT CHECK (
+    tipo IN (
+      'CLIENTE',
+      'ALMACEN',
+      'PROVEEDOR',
+      'REPARTIDOR',
+      'PUNTO_RETIRO'
+    )
+  ) NOT NULL,
   calle VARCHAR(200) NOT NULL,
   numero INTEGER NOT NULL,
   departamento VARCHAR(50),
   localidad_id INTEGER NOT NULL REFERENCES localidad(id) ON DELETE RESTRICT,
   activa BOOLEAN NOT NULL DEFAULT TRUE
-);
-
--- Tabla USUARIOS
-CREATE TABLE usuarios (
-    usuario_id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-    nombre VARCHAR(255) NOT NULL,
-    email VARCHAR(255) UNIQUE NOT NULL,
-    telefono VARCHAR(20),
-    rol TEXT CHECK (rol IN ('CLIENTE', 'REPARTIDOR', 'ADMIN')) NOT NULL,
-    activo BOOLEAN NOT NULL DEFAULT TRUE,
-    fecha_registro TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-    deleted_at TIMESTAMP WITH TIME ZONE,
-    deleted_by INT REFERENCES usuarios(usuario_id)
 );
