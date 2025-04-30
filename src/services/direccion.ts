@@ -7,10 +7,11 @@ export interface Localidad {
 }
 
 export interface Direccion {
-    id: number;
-    tipo: string;
+    direccion_id: number;
+    tipo: 'CLIENTE' | 'ALMACEN' | 'PROVEEDOR' | 'REPARTIDOR' | 'PUNTO_RETIRO';
     calle: string;
-    numero: string;
+    numero: number;
+    departamento?: string;
     localidad_id: number;
     activa: boolean;
     localidad?: Localidad;
@@ -19,26 +20,26 @@ export interface Direccion {
 
 export const getDirecciones = async (): Promise<Direccion[]> => {
     const { data, error } = await supabase
-        .from('direccion')
+        .from('direcciones')
         .select('*, localidad(nombre, provincia(nombre))')
         .eq('activa', true);
     if (error) throw error;
     return data;
 };
 
-export const createDireccion = async (direccion: Omit<Direccion, 'id' | 'created_at'>): Promise<Direccion> => {
-    const { data, error } = await supabase.from('direccion').insert([direccion]).select();
+export const createDireccion = async (direccion: Omit<Direccion, 'direccion_id' | 'created_at'>): Promise<Direccion> => {
+    const { data, error } = await supabase.from('direcciones').insert([direccion]).select();
     if (error) throw error;
     return data[0];
 };
 
 export const updateDireccion = async (id: number, updates: Partial<Direccion>): Promise<Direccion> => {
-    const { data, error } = await supabase.from('direccion').update(updates).eq('id', id).select();
+    const { data, error } = await supabase.from('direcciones').update(updates).eq('direccion_id', id).select();
     if (error) throw error;
     return data[0];
 };
 
 export const deleteDireccion = async (id: number): Promise<void> => {
-    const { error } = await supabase.from('direccion').update({ activa: false }).eq('id', id);
+    const { error } = await supabase.from('direcciones').update({ activa: false }).eq('direccion_id', id);
     if (error) throw error;
 };

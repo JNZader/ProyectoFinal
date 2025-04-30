@@ -77,3 +77,21 @@ UPDATE
                 1
         )
     );
+
+CREATE POLICY "Admins can manage clientes" ON clientes FOR ALL USING (
+    (
+        SELECT
+            auth.jwt() ->> 'role'
+    ) = 'admin'
+);
+
+CREATE POLICY "Admins can manage usuarios" ON usuarios FOR ALL USING (
+    (
+        SELECT
+            auth.jwt() ->> 'role'
+    ) = 'admin'
+);
+
+CREATE POLICY "Read own usuario role" ON usuarios FOR
+SELECT
+    USING (clerk_user_id = (auth.jwt() ->> 'user_id'));

@@ -1,17 +1,18 @@
 import { Routes, Route } from 'react-router-dom';
+import ProtectedRoute from './hooks/ProtectedRoute';
 import Login from './pages/Login';
-import Registro from './pages/Registro';
+import Register from './pages/Registro';
 import Home from './pages/Home';
-
+import Clientes from './pages/admin/Clientes';
 export default function App() {
   return (
-    <div className="gry">
-      <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route path='/registro' element={<Registro />} />
-        <Route path='/home' element={<Home />} />
+    <Routes>
+      <Route path="/login" element={<Login />} />
+      <Route path="/registro" element={<Register />} />
+      <Route element={<ProtectedRoute />}>
         <Route path="/" element={<Home />} />
-      </Routes>
-    </div>
+        <Route path="/admin/clientes" element={<Clientes />} />
+      </Route>
+    </Routes>
   );
 }

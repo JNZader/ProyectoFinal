@@ -11,17 +11,28 @@ export const useClientes = () => {
 
     const createMutation = useMutation({
         mutationFn: createCliente,
-        onSuccess: () => queryClient.invalidateQueries({ queryKey: ['clientes'] }),
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['clientes'] });
+            queryClient.invalidateQueries({ queryKey: ['usuarios'] }); // Invalida también la caché de usuarios
+        },
     });
 
     const updateMutation = useMutation({
-        mutationFn: ({ id, updates }: { id: number; updates: Partial<Cliente> }) => updateCliente(id, updates),
-        onSuccess: () => queryClient.invalidateQueries({ queryKey: ['clientes'] }),
+        mutationFn: ({ id, updates }: { id: number; updates: Partial<Cliente> }) => 
+            updateCliente(id, updates),
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['clientes'] });
+            queryClient.invalidateQueries({ queryKey: ['usuarios'] });
+        },
     });
 
     const deleteMutation = useMutation({
-        mutationFn: deleteCliente,
-        onSuccess: () => queryClient.invalidateQueries({ queryKey: ['clientes'] }),
+        mutationFn: ({ id, deleted_by }: { id: number; deleted_by: number }) => 
+            deleteCliente(id, deleted_by),
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['clientes'] });
+            queryClient.invalidateQueries({ queryKey: ['usuarios'] });
+        },
     });
 
     return {
@@ -31,5 +42,8 @@ export const useClientes = () => {
         createCliente: createMutation.mutate,
         updateCliente: updateMutation.mutate,
         deleteCliente: deleteMutation.mutate,
+        isCreating: createMutation.isPending,
+        isUpdating: updateMutation.isPending,
+        isDeleting: deleteMutation.isPending,
     };
 };
